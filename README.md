@@ -9,7 +9,7 @@ python -m http.server 8000
 # rồi mở http://localhost:8000
 ```
 
-## 4 dự án
+## 4 Dự án
 
 | Tên | Thư mục | Mô tả |
 |---|---|---|
