@@ -1,50 +1,238 @@
 <!DOCTYPE html>
 <html lang="vi">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Interactive Showcase - OkNguyen</title>
-<style>
-  :root{
-    --bg:#0b0d12; --bar:#11141b; --line:#222836; --txt:#e7ecf5; --mut:#8b94a7;
-    --accent:#5b8cff; --accent2:#9b6bff;
-  }
-  *{margin:0;padding:0;box-sizing:border-box}
-  html,body{height:100%}
-  body{font-family:'Inter',system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;background:var(--bg);color:var(--txt);display:flex;flex-direction:column;height:100vh;overflow:hidden}
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <script type="text/javascript" src="https://lib.oknguyen.com/icon-oknguyen.js"></script>
+  <title>Interactive Showcase - OkNguyen</title>
+  <style>
+    :root {
+      --bg: #0b0d12;
+      --bar: #11141b;
+      --line: #222836;
+      --txt: #e7ecf5;
+      --mut: #8b94a7;
+      --accent: #5b8cff;
+      --accent2: #9b6bff;
+    }
 
-  header{flex:0 0 auto;display:flex;align-items:center;gap:18px;padding:0 18px;height:60px;background:linear-gradient(180deg,#141824,#10131b);border-bottom:1px solid var(--line);box-shadow:0 1px 0 rgba(255,255,255,.03)}
-  .brand{display:flex;align-items:center;gap:11px;font-weight:800;letter-spacing:.2px;white-space:nowrap}
-  .brand .logo{width:30px;height:30px;border-radius:8px;background:linear-gradient(135deg,var(--accent),var(--accent2));display:flex;align-items:center;justify-content:center;font-weight:900;color:#0b0d12;font-size:16px}
-  .brand small{display:block;font-weight:500;font-size:11px;color:var(--mut);letter-spacing:.6px;text-transform:uppercase}
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box
+    }
 
-  nav{display:flex;gap:6px;flex:1 1 auto;overflow-x:auto;scrollbar-width:none}
-  nav::-webkit-scrollbar{display:none}
-  .tab{appearance:none;border:1px solid transparent;background:transparent;color:var(--mut);font:inherit;font-weight:600;font-size:14px;padding:9px 15px;border-radius:10px;cursor:pointer;white-space:nowrap;display:flex;align-items:center;gap:9px;transition:.15s}
-  .tab .dot{width:8px;height:8px;border-radius:50%;background:#384256;flex:0 0 auto}
-  .tab:hover{color:var(--txt);background:#1a1f2b}
-  .tab.active{color:#fff;background:#1d2334;border-color:#2c3650}
-  .tab.active .dot{background:var(--accent);box-shadow:0 0 8px var(--accent)}
+    html,
+    body {
+      height: 100%
+    }
 
-  .right{display:flex;align-items:center;gap:10px;flex:0 0 auto}
-  .openbtn{display:inline-flex;align-items:center;gap:7px;text-decoration:none;color:var(--mut);font-size:13px;font-weight:600;padding:8px 12px;border:1px solid var(--line);border-radius:9px;transition:.15s}
-  .openbtn:hover{color:#fff;border-color:#33405e;background:#161b27}
+    body {
+      font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+      background: var(--bg);
+      color: var(--txt);
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
+      overflow: hidden
+    }
 
-  main{flex:1 1 auto;position:relative;background:#000}
-  iframe{position:absolute;inset:0;width:100%;height:100%;border:0;background:#000}
-  #loader{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:14px;color:var(--mut);background:var(--bg);transition:opacity .3s;z-index:2}
-  #loader.hide{opacity:0;pointer-events:none}
-  .spin{width:34px;height:34px;border:3px solid #2a3245;border-top-color:var(--accent);border-radius:50%;animation:s 1s linear infinite}
-  @keyframes s{to{transform:rotate(360deg)}}
+    header {
+      flex: 0 0 auto;
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      padding: 0 18px;
+      height: 60px;
+      background: linear-gradient(180deg, #141824, #10131b);
+      border-bottom: 1px solid var(--line);
+      box-shadow: 0 1px 0 rgba(255, 255, 255, .03)
+    }
 
-  @media (max-width:720px){
-    header{gap:10px;padding:0 10px}
-    .brand small{display:none}
-    .tab{padding:8px 11px;font-size:13px}
-    .openbtn span{display:none}
-  }
-</style>
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 11px;
+      font-weight: 800;
+      letter-spacing: .2px;
+      white-space: nowrap
+    }
+
+    .brand .logo {
+      width: 30px;
+      height: 30px;
+      border-radius: 8px;
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 900;
+      color: #0b0d12;
+      font-size: 16px
+    }
+
+    .brand small {
+      display: block;
+      font-weight: 500;
+      font-size: 11px;
+      color: var(--mut);
+      letter-spacing: .6px;
+      text-transform: uppercase
+    }
+
+    nav {
+      display: flex;
+      gap: 6px;
+      flex: 1 1 auto;
+      overflow-x: auto;
+      scrollbar-width: none
+    }
+
+    nav::-webkit-scrollbar {
+      display: none
+    }
+
+    .tab {
+      appearance: none;
+      border: 1px solid transparent;
+      background: transparent;
+      color: var(--mut);
+      font: inherit;
+      font-weight: 600;
+      font-size: 14px;
+      padding: 9px 15px;
+      border-radius: 10px;
+      cursor: pointer;
+      white-space: nowrap;
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      transition: .15s
+    }
+
+    .tab .dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #384256;
+      flex: 0 0 auto
+    }
+
+    .tab:hover {
+      color: var(--txt);
+      background: #1a1f2b
+    }
+
+    .tab.active {
+      color: #fff;
+      background: #1d2334;
+      border-color: #2c3650
+    }
+
+    .tab.active .dot {
+      background: var(--accent);
+      box-shadow: 0 0 8px var(--accent)
+    }
+
+    .right {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex: 0 0 auto
+    }
+
+    .openbtn {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      text-decoration: none;
+      color: var(--mut);
+      font-size: 13px;
+      font-weight: 600;
+      padding: 8px 12px;
+      border: 1px solid var(--line);
+      border-radius: 9px;
+      transition: .15s
+    }
+
+    .openbtn:hover {
+      color: #fff;
+      border-color: #33405e;
+      background: #161b27
+    }
+
+    main {
+      flex: 1 1 auto;
+      position: relative;
+      background: #000
+    }
+
+    iframe {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      border: 0;
+      background: #000
+    }
+
+    #loader {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      gap: 14px;
+      color: var(--mut);
+      background: var(--bg);
+      transition: opacity .3s;
+      z-index: 2
+    }
+
+    #loader.hide {
+      opacity: 0;
+      pointer-events: none
+    }
+
+    .spin {
+      width: 34px;
+      height: 34px;
+      border: 3px solid #2a3245;
+      border-top-color: var(--accent);
+      border-radius: 50%;
+      animation: s 1s linear infinite
+    }
+
+    @keyframes s {
+      to {
+        transform: rotate(360deg)
+      }
+    }
+
+    @media (max-width:720px) {
+      header {
+        gap: 10px;
+        padding: 0 10px
+      }
+
+      .brand small {
+        display: none
+      }
+
+      .tab {
+        padding: 8px 11px;
+        font-size: 13px
+      }
+
+      .openbtn span {
+        display: none
+      }
+    }
+  </style>
 </head>
+
 <body>
   <header>
     <div class="brand">
@@ -53,54 +241,59 @@
     </div>
     <nav id="nav"></nav>
     <div class="right">
-      <a class="openbtn" id="openNew" href="#" target="_blank" rel="noopener" title="Mở demo hiện tại ở tab mới">↗ <span>Tab mới</span></a>
+      <a class="openbtn" id="openNew" href="#" target="_blank" rel="noopener" title="Mở demo hiện tại ở tab mới">↗
+        <span>Tab mới</span></a>
     </div>
   </header>
 
   <main>
-    <div id="loader"><div class="spin"></div><div id="loadlabel">Đang tải…</div></div>
+    <div id="loader">
+      <div class="spin"></div>
+      <div id="loadlabel">Đang tải…</div>
+    </div>
     <iframe id="frame" title="demo" allow="fullscreen; autoplay; gamepad; pointer-lock" allowfullscreen></iframe>
   </main>
 
-<script>
-  const DEMOS = [
-    { id:'macos',     label:'macOS Web',       src:'macos/index.html' },
-    { id:'neon-rush', label:'NEON RUSH',        src:'neon-rush/index.html' },
-    { id:'galaxy',    label:'Mô phỏng Thiên hà', src:'galaxy/index.html' },
-    { id:'expense',   label:'Sổ Chi Tiêu',      src:'expense/index.html' },
-  ];
+  <script>
+    const DEMOS = [
+      { id: 'macos', label: 'macOS Web', src: 'macos/index.html' },
+      { id: 'neon-rush', label: 'NEON RUSH', src: 'neon-rush/index.html' },
+      { id: 'galaxy', label: 'Mô phỏng Thiên hà', src: 'galaxy/index.html' },
+      { id: 'expense', label: 'Sổ Chi Tiêu', src: 'expense/index.html' },
+    ];
 
-  const nav = document.getElementById('nav');
-  const frame = document.getElementById('frame');
-  const loader = document.getElementById('loader');
-  const loadlabel = document.getElementById('loadlabel');
-  const openNew = document.getElementById('openNew');
+    const nav = document.getElementById('nav');
+    const frame = document.getElementById('frame');
+    const loader = document.getElementById('loader');
+    const loadlabel = document.getElementById('loadlabel');
+    const openNew = document.getElementById('openNew');
 
-  DEMOS.forEach(d=>{
-    const b=document.createElement('button');
-    b.className='tab'; b.dataset.id=d.id;
-    b.innerHTML='<span class="dot"></span>'+d.label;
-    b.onclick=()=>{ location.hash=d.id; };
-    nav.appendChild(b);
-  });
+    DEMOS.forEach(d => {
+      const b = document.createElement('button');
+      b.className = 'tab'; b.dataset.id = d.id;
+      b.innerHTML = '<span class="dot"></span>' + d.label;
+      b.onclick = () => { location.hash = d.id; };
+      nav.appendChild(b);
+    });
 
-  function current(){
-    const id=location.hash.replace('#','');
-    return DEMOS.find(d=>d.id===id) || DEMOS[0];
-  }
-  function load(){
-    const d=current();
-    document.querySelectorAll('.tab').forEach(t=>t.classList.toggle('active', t.dataset.id===d.id));
-    loadlabel.textContent='Đang tải '+d.label+'…';
-    loader.classList.remove('hide');
-    openNew.href=d.src;
-    if(frame.getAttribute('src')!==d.src) frame.setAttribute('src',d.src);
-    else loader.classList.add('hide');
-    document.title='Interactive Showcase · '+d.label;
-  }
-  frame.addEventListener('load',()=>loader.classList.add('hide'));
-  window.addEventListener('hashchange',load);
-  load();
-</script>
+    function current() {
+      const id = location.hash.replace('#', '');
+      return DEMOS.find(d => d.id === id) || DEMOS[0];
+    }
+    function load() {
+      const d = current();
+      document.querySelectorAll('.tab').forEach(t => t.classList.toggle('active', t.dataset.id === d.id));
+      loadlabel.textContent = 'Đang tải ' + d.label + '…';
+      loader.classList.remove('hide');
+      openNew.href = d.src;
+      if (frame.getAttribute('src') !== d.src) frame.setAttribute('src', d.src);
+      else loader.classList.add('hide');
+      document.title = 'Interactive Showcase · ' + d.label;
+    }
+    frame.addEventListener('load', () => loader.classList.add('hide'));
+    window.addEventListener('hashchange', load);
+    load();
+  </script>
 </body>
+
 </html>
