@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>macOS Web — OkNguyen</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20100%20100'%3E%3Crect%20width='100'%20height='100'%20rx='23'%20fill='%231d1f21'/%3E%3Cpath%20d='M22%2030%20l17%2015%20-17%2015'%20fill='none'%20stroke='%23f5f5f7'%20stroke-width='7'%20stroke-linecap='round'%20stroke-linejoin='round'/%3E%3Cpath%20d='M48%2062%20h22'%20stroke='%23f5f5f7'%20stroke-width='7'%20stroke-linecap='round'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,100..900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/system.css">
+<link rel="stylesheet" href="css/apps.css">
+</head>
+<body data-theme="light">
+
+  <!-- Desktop / wallpaper -->
+  <div id="desktop"></div>
+
+  <!-- Menu bar -->
+  <header id="menubar">
+    <div id="menubar-left"></div>
+    <div id="menubar-right"></div>
+  </header>
+
+  <!-- Windows live here -->
+  <div id="windows-layer"></div>
+
+  <!-- Notifications -->
+  <div id="notifications"></div>
+
+  <!-- Dock -->
+  <footer id="dock-wrap">
+    <div id="dock"></div>
+  </footer>
+
+  <!-- Launchpad overlay -->
+  <div id="launchpad" class="hidden">
+    <div id="launchpad-grid"></div>
+  </div>
+
+  <!-- Lock / shutdown overlays -->
+  <div id="lockscreen" class="hidden"></div>
+  <div id="shutdown" class="hidden"></div>
+
+  <script src="js/core.js"></script>
+  <script src="js/icons.js"></script>
+  <script src="js/wallpapers.js"></script>
+  <script src="js/wm.js"></script>
+  <script src="js/menubar.js"></script>
+  <script src="js/dock.js"></script>
+  <script src="js/apps/calculator.js"></script>
+  <script src="js/apps/notes.js"></script>
+  <script src="js/apps/terminal.js"></script>
+  <script src="js/apps/settings.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>

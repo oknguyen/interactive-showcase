@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="vi" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#11100d" />
+  <meta name="description" content="Sổ Chi Tiêu — quản lý chi tiêu cá nhân kiểu Việt: nhập tự nhiên 'ăn sáng 35k', tự phân loại, biểu đồ và cảnh báo ngân sách." />
+  <title>Sổ Chi Tiêu — Quản lý chi tiêu cá nhân</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='15' fill='%232fd18c'/%3E%3Ctext x='32' y='45' font-size='38' font-weight='bold' font-family='Arial' text-anchor='middle' fill='%230a120d'%3E%E2%82%AB%3C/text%3E%3C/svg%3E" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=Be+Vietnam+Pro:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="bg-glow" aria-hidden="true"></div>
+
+  <header class="topbar container">
+    <div class="brand">
+      <span class="brand-mark" aria-hidden="true">₫</span>
+      <div>
+        <h1>Sổ Chi Tiêu</h1>
+        <p class="brand-sub">Quản lý chi tiêu cá nhân</p>
+      </div>
+    </div>
+    <nav class="month-nav" aria-label="Chọn tháng">
+      <button id="prevMonth" class="icon-btn" aria-label="Tháng trước">‹</button>
+      <span id="monthLabel" class="month-label">—</span>
+      <button id="nextMonth" class="icon-btn" aria-label="Tháng sau">›</button>
+    </nav>
+    <button id="themeToggle" class="icon-btn theme-toggle" aria-label="Đổi giao diện sáng / tối"></button>
+  </header>
+
+  <main class="container">
+    <!-- Ô nhập ngôn ngữ tự nhiên -->
+    <section class="entry reveal" style="--d:0s" aria-label="Thêm giao dịch">
+      <form id="entryForm" class="entry-box" autocomplete="off">
+        <span class="entry-icon" aria-hidden="true">₫</span>
+        <input id="entryInput" type="text" enterkeyhint="done"
+               placeholder="Nhập tự nhiên: &quot;ăn sáng 35k&quot;, &quot;đổ xăng 80 nghìn&quot;…" />
+        <button type="submit" id="entryAdd" class="btn-add" disabled>Ghi</button>
+      </form>
+      <div id="preview" class="preview-row" hidden></div>
+      <div class="examples" id="examples">
+        <span class="examples-label">Thử nhanh:</span>
+        <button type="button" class="chip-example">ăn sáng 35k</button>
+        <button type="button" class="chip-example">đổ xăng 80 nghìn</button>
+        <button type="button" class="chip-example">trà sữa 65k hôm qua</button>
+        <button type="button" class="chip-example">tiền điện 850k</button>
+        <button type="button" class="chip-example">+lương 15 triệu</button>
+      </div>
+    </section>
+
+    <section class="grid">
+      <!-- Ngân sách -->
+      <article class="card budget-card reveal" style="--d:.06s">
+        <header class="card-head">
+          <h2>Ngân sách tháng</h2>
+          <button id="budgetEdit" class="icon-btn small" aria-label="Sửa ngân sách" title="Sửa ngân sách">✎</button>
+        </header>
+        <div id="overBanner" class="over-banner" hidden>
+          <span aria-hidden="true">🚨</span><span>Vượt ngân sách <b id="overAmount"></b></span>
+        </div>
+        <p class="budget-remaining-label" id="remainLabel">Còn lại trong tháng</p>
+        <p class="big-number" id="remainValue">0 ₫</p>
+        <div class="progress" role="progressbar" aria-label="Mức dùng ngân sách" id="progressBar">
+          <div class="progress-fill" id="progressFill"></div>
+          <span class="progress-tick" style="left:80%" title="Ngưỡng cảnh báo 80%"></span>
+        </div>
+        <p class="budget-meta">
+          <span>Đã chi <b id="spentValue">0 ₫</b> / <span id="budgetValue">0 ₫</span></span>
+          <span id="budgetPct">0%</span>
+        </p>
+        <form id="budgetForm" class="budget-form" hidden>
+          <input id="budgetInput" type="text" inputmode="text" placeholder="VD: 5tr, 8 triệu, 5000000" />
+          <button class="btn-mini" type="submit">Lưu</button>
+          <div class="budget-presets" role="group" aria-label="Mức ngân sách gợi ý">
+            <button type="button" data-v="3000000">3tr</button>
+            <button type="button" data-v="5000000">5tr</button>
+            <button type="button" data-v="8000000">8tr</button>
+            <button type="button" data-v="12000000">12tr</button>
+            <button type="button" data-v="20000000">20tr</button>
+          </div>
+        </form>
+        <div class="stats-row">
+          <div class="stat"><span class="stat-label">Tổng chi</span><b id="statExpense" class="neg">0 ₫</b></div>
+          <div class="stat"><span class="stat-label">Tổng thu</span><b id="statIncome" class="pos">0 ₫</b></div>
+          <div class="stat"><span class="stat-label">Giao dịch</span><b id="statCount">0</b></div>
+        </div>
+      </article>
+
+      <!-- Biểu đồ cột theo ngày -->
+      <article class="card chart-card reveal" style="--d:.12s">
+        <header class="card-head">
+          <h2>Chi tiêu theo ngày</h2>
+          <span class="card-cap" id="barCaption"></span>
+        </header>
+        <div id="barChart" class="bar-chart" role="img" aria-label="Biểu đồ cột chi tiêu theo ngày trong tháng"></div>
+      </article>
+
+      <!-- Biểu đồ tròn theo danh mục -->
+      <article class="card donut-card reveal" style="--d:.18s">
+        <header class="card-head">
+          <h2>Theo danh mục</h2>
+          <span class="card-cap" id="donutCaption"></span>
+        </header>
+        <div class="donut-wrap">
+          <div class="donut-figure" id="donut" role="img" aria-label="Biểu đồ tròn chi tiêu theo danh mục"></div>
+          <ul id="legend" class="legend"></ul>
+        </div>
+      </article>
+
+      <!-- Danh sách giao dịch -->
+      <article class="card list-card reveal" style="--d:.24s">
+        <header class="card-head">
+          <h2>Giao dịch</h2>
+          <span class="card-cap" id="txCount"></span>
+        </header>
+        <div id="txList" class="tx-list"></div>
+        <div id="emptyState" class="empty" hidden>
+          <p class="empty-icon" aria-hidden="true">🍃</p>
+          <p>Chưa có giao dịch nào trong tháng này.</p>
+          <p class="muted">Gõ thử <b>“ăn sáng 35k”</b> ở ô phía trên nhé!</p>
+          <button id="seedBtn" class="btn-ghost" type="button">✨ Thêm dữ liệu mẫu</button>
+        </div>
+      </article>
+    </section>
+  </main>
+
+  <footer class="foot container">
+    Dữ liệu được lưu cục bộ trong trình duyệt của bạn (localStorage) — không gửi đi đâu cả.
+  </footer>
+
+  <div id="toasts" class="toasts" aria-live="polite"></div>
+  <div id="catPicker" class="cat-picker" hidden></div>
+
+  <script src="parser.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
